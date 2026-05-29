@@ -228,9 +228,11 @@ else:
         
         # Dual-Axis Plotly Line Construction
         fig_timeline = go.Figure()
-        fig_timeline.add_trace(go.Scatter(
+        
+        # CORRECTED: Changed to explicit go.Bar instead of go.Scatter(type='bar')
+        fig_timeline.add_trace(go.Bar(
             x=time_df['review_date'], y=time_df['Volume'],
-            name="Review Count Volume", type='bar', opacity=0.15, yaxis='y2',
+            name="Review Count Volume", opacity=0.15, yaxis='y2',
             marker_color='#4A90E2'
         ))
         fig_timeline.add_trace(go.Scatter(
@@ -251,8 +253,9 @@ else:
         
     with vis_col2:
         st.subheader("📊 Rating Frequency Weight")
-        # Categorical rating volume split
-        rating_counts = df_filtered['rating'].value_index = df_filtered['rating'].value_counts().reset_index()
+        
+        # CORRECTED: Cleared value_index assignment syntax error
+        rating_counts = df_filtered['rating'].value_counts().reset_index()
         rating_counts.columns = ['Rating', 'Count']
         rating_counts = rating_counts.sort_values(by='Rating')
         
